@@ -1,6 +1,7 @@
 #include "scaner.h"
 
-#include <QDir>
+#include <QDirIterator>
+#include <QDebug>
 
 Scaner::Scaner()
 {
@@ -12,21 +13,19 @@ Scaner::~Scaner()
 
 QStringList Scaner::scanFolder(const QString & folderName)
 {
-    QDir dir(folderName);
-
-    QStringList files = dir.entryList(QDir::Files);
-    QStringList::iterator it;
-    QStringList dirs = dir.entryList(QDir::Dirs);
-    it = dirs.begin();
-    while(it != dirs.end())
+    QDirIterator it(folderName, QDirIterator::Subdirectories);
+    QStringList files;
+    while(it.hasNext())
     {
-        if(*it != "." && *it != "..")
+        if(it.fileName() != "." || it.fileName() != "..")
         {
-            scanFolder(folderName + "/" + *it);
+            //qDebug() << it.filePath();
+            files << it.filePath();
+            it.next();
         }
         else
         {
-            ++it;
+            it.next();
         }
     }
     return files;
