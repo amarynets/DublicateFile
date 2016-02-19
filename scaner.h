@@ -1,7 +1,8 @@
 #ifndef SCANER_H
 #define SCANER_H
 
-#include <QStringList>
+#include <QVector>
+#include <QPair>
 
 class Scaner
 {
@@ -9,7 +10,9 @@ public:
     Scaner();
     ~Scaner();
 
-    QStringList scanFolder(const QString & folderName);
+    QVector<QPair<QString, QString>> scanFolder(const QString & folderName);
+private:
+    QString hashFile(const QString& pathToFile) const;
 };
 
 #endif // SCANER_H

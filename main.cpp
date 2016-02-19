@@ -9,10 +9,7 @@ int main(int argc, char *argv[])
 {    
     QString path = QDir::currentPath();
     Scaner scan;
-    QStringList sl = scan.scanFolder(path);
-
-    Builder b;
-    auto res = b.hashFile(sl[0]);
+    auto sl = scan.scanFolder(path);
 
     return 0;
 }
