@@ -5,8 +5,7 @@
 #include "scaner.h"
 
 int main(int argc, char *argv[])
-{
-    //QCoreApplication a(argc, argv);
+{    
     QString path = QDir::currentPath();
     Scaner scan;
     QStringList sl = scan.scanFolder(path);
@@ -17,6 +16,5 @@ int main(int argc, char *argv[])
          qDebug() << i;
     }
 
-    //return a.exec();
     return 0;
 }
