@@ -3,6 +3,7 @@
 #include <QDebug>
 
 #include "scaner.h"
+#include "builder.h"
 
 int main(int argc, char *argv[])
 {    
@@ -10,11 +11,8 @@ int main(int argc, char *argv[])
     Scaner scan;
     QStringList sl = scan.scanFolder(path);
 
-
-    for(auto i : sl)
-    {
-         qDebug() << i;
-    }
+    Builder b;
+    auto res = b.hashFile(sl[0]);
 
     return 0;
 }

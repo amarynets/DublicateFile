@@ -14,6 +14,7 @@ Builder::~Builder()
 
 void Builder::addIfNeadded(const QString& input)
 {
+    auto hash = hashFile(input);
 }
 
 QString Builder::hashFile(const QString& pathToFile) const

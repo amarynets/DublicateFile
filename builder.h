@@ -11,9 +11,9 @@ public:
     Builder();
     ~Builder();
     void addIfNeadded(const QString& input);
+    QString hashFile(const QString& pathToFile) const;
     QStringList takeResult();
 private:
-    QString hashFile(const QString& pathToFile) const;
     QVector<QPair<QString, QString>> result;
 };
 
