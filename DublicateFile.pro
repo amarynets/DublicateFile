@@ -16,7 +16,9 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    scaner.cpp
+    scaner.cpp \
+    builder.cpp
 
 HEADERS += \
-    scaner.h
+    scaner.h \
+    builder.h
