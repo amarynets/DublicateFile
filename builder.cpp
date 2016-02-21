@@ -1,6 +1,7 @@
 #include "builder.h"
 
 #include <QtAlgorithms>
+#include <QSet>
 
 
 Builder::Builder()
@@ -14,12 +15,16 @@ Builder::~Builder()
 void Builder::createUnique(const QVector<QPair<QString, QString> > &input)
 {
     uniqueFiles.push_back(input[0]);
-    for(auto i = input.begin() + 1; i != input.end(); ++i)
+    for(auto i : input)
     {
-        auto find = qFind(uniqueFiles, *i);
-        if(find == uniqueFiles.end())
+        auto find = qFind(uniqueFiles, i);
+        if(find != uniqueFiles.end())
         {
-            uniqueFiles.push_back(*i);
+            continue;
+        }
+        else
+        {
+            uniqueFiles.push_back(i);
         }
     }
 }
