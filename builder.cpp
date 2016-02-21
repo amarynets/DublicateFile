@@ -14,18 +14,24 @@ Builder::~Builder()
 
 void Builder::createUnique(const QVector<QPair<QString, QString> > &input)
 {
-    uniqueFiles.push_back(input[0]);
-    for(auto i : input)
+//    uniqueFiles.push_back(input[0]);
+//    for(auto i : input)
+//    {
+//        auto find = qFind(uniqueFiles, i);
+//        if(find != uniqueFiles.end())
+//        {
+//            continue;
+//        }
+//        else
+//        {
+//            uniqueFiles.push_back(i);
+//        }
+//    }
+    auto list = input.toList();
+    QSet<QPair<QString, QString> > set = list.toSet();
+    for(auto i : set)
     {
-        auto find = qFind(uniqueFiles, i);
-        if(find != uniqueFiles.end())
-        {
-            continue;
-        }
-        else
-        {
-            uniqueFiles.push_back(i);
-        }
+        uniqueFiles.push_back(i);
     }
 }
 
