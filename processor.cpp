@@ -14,10 +14,7 @@ Processor::~Processor()
 QStringList Processor::process(QVector<QPair<QString, QString>> input)
 {
     Builder build{};
-    for(auto item : input)
-    {
-        build.addIfUnique(item);
-    }
+    build.createUnique(input);
     build.createDuplicateList(input);
 
     return build.takeResult();

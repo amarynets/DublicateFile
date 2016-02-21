@@ -10,7 +10,7 @@ class Builder
 public:
     Builder();
     ~Builder();
-    void addIfUnique(const QPair<QString, QString> & input);
+    void createUnique(const QVector<QPair<QString, QString> > &input);
     void createDuplicateList(const QVector<QPair<QString, QString>> & input);
     QStringList takeResult();
 private:

@@ -11,12 +11,16 @@ Builder::~Builder()
 {
 }
 
-void Builder::addIfUnique(const QPair<QString, QString> & input)
+void Builder::createUnique(const QVector<QPair<QString, QString> > &input)
 {
-    auto it = qFind(uniqueFiles, input);
-    if(it != uniqueFiles.end())
+    uniqueFiles.push_back(input[0]);
+    for(auto i = input.begin() + 1; i != input.end(); ++i)
     {
-        uniqueFiles.push_back(input);
+        auto find = qFind(uniqueFiles, *i);
+        if(find == uniqueFiles.end())
+        {
+            uniqueFiles.push_back(*i);
+        }
     }
 }
 
@@ -41,7 +45,7 @@ void Builder::createDuplicateList(const QVector<QPair<QString, QString> > &input
                 duplicateFiles.push_back(*dup);
             }
 
-            dup = qFind(dup, input.end(), it);
+            dup = qFind(dup + 1, input.end(), it);
         }
     }
 }
