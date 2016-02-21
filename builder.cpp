@@ -14,8 +14,14 @@ Builder::~Builder()
 
 void Builder::createUnique(const QVector<QPair<QString, QString> > &input)
 {
-   std::copy(input.begin(), input.end(), uniqueFiles.begin());
-   std::unique(uniqueFiles.begin(), uniqueFiles.end(), pred);
+   for(auto i : input)
+   {
+       uniqueFiles.push_back(i);
+   }
+   std::unique(uniqueFiles.begin(), uniqueFiles.end(),
+               [](QPair<QString, QString>& l, QPair<QString, QString>& r)
+   {return (l.second.compare(r.second)) == 0;}
+               );
 }
 
 void Builder::createDuplicateList(const QVector<QPair<QString, QString> > &input)
