@@ -3,7 +3,7 @@
 #include <QDebug>
 
 #include "scaner.h"
-#include "builder.h"
+#inclue "process"
 
 int main(int argc, char *argv[])
 {    
