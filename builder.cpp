@@ -20,7 +20,7 @@ void Builder::createUnique(const QVector<QPair<QString, QString> > &input)
    }
    auto end = std::unique(uniqueFiles.begin(), uniqueFiles.end(),
                [](QPair<QString, QString>& l, QPair<QString, QString>& r)
-   {return (l.second.compare(r.second)) != 0;}
+   {return l.second == r.second;}
                );
    uniqueFiles.erase(end, uniqueFiles.end());
 }
