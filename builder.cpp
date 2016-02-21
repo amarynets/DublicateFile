@@ -82,3 +82,19 @@ QStringList Builder::takeResult()
     }
     return result;
 }
+
+void Builder::create(const QVector<QPair<QString, QString>> & input)
+{
+    for(auto i : input)
+    {
+        for(auto j : input)
+        {
+            bool isEqualsHash = i.second == j.second;
+            bool isNotEqualsPath = i.first != j.first;
+            if(isEqualsHash == true && isNotEqualsPath == true)
+            {
+                duplicateFiles.push_back(j);
+            }
+        }
+    }
+}

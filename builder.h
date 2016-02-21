@@ -12,6 +12,7 @@ public:
     ~Builder();
     void createUnique(const QVector<QPair<QString, QString> > &input);
     void createDuplicateList(const QVector<QPair<QString, QString>> & input);
+    void create(const QVector<QPair<QString, QString>> & input);
     QStringList takeResult();
 private:
     QVector<QPair<QString, QString>> uniqueFiles;
