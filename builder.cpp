@@ -35,12 +35,12 @@ void Builder::createDuplicateList(const QVector<QPair<QString, QString> > &input
     {
         auto dup = qFind(input, it);
         bool equalsPath = it.first != dup->first;
-
+//якщо ми знайшли інший файл з іншим шляхом
         if(dup != input.end() && equalsPath == true)
         {
             duplicateFiles.push_back(it);
         }
-
+// доки не переберемо весь список
         while(dup != input.end())
         {
             bool equalsHash = it.second == dup->second;
@@ -49,7 +49,7 @@ void Builder::createDuplicateList(const QVector<QPair<QString, QString> > &input
             {
                 duplicateFiles.push_back(*dup);
             }
-
+// шукаєм наступний файл
             dup = qFind(dup + 1, input.end(), it);
         }
     }
