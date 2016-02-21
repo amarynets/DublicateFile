@@ -12,9 +12,14 @@ public:
     ~Builder();
     void createUnique(const QVector<QPair<QString, QString> > &input);
     void createDuplicateList(const QVector<QPair<QString, QString>> & input);
-    void create(const QVector<QPair<QString, QString>> & input);
     QStringList takeResult();
 private:
+    bool pred(QPair<QString, QString> l, QPair<QString, QString> r)
+    {
+        int res = l.second.compare(r.second);
+        return  res == 0;
+    }
+
     QVector<QPair<QString, QString>> uniqueFiles;
     QVector<QPair<QString, QString>> duplicateFiles;
 };

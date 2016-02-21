@@ -1,7 +1,7 @@
 #include "builder.h"
 
 #include <QtAlgorithms>
-#include <QSet>
+#include <algorithm>
 
 
 Builder::Builder()
@@ -14,36 +14,8 @@ Builder::~Builder()
 
 void Builder::createUnique(const QVector<QPair<QString, QString> > &input)
 {
-    //    uniqueFiles.push_back(input[0]);
-    //    for(auto i : input)
-    //    {
-    //        auto find = qFind(uniqueFiles, i);
-    //        if(find != uniqueFiles.end())
-    //        {
-    //            continue;
-    //        }
-    //        else
-    //        {
-    //            uniqueFiles.push_back(i);
-    //        }
-    //    }
-
-//    auto list = input.toList();
-//    QSet<QPair<QString, QString> > set = list.toSet();
-//    for(auto i : set)
-//    {
-//        uniqueFiles.push_back(i);
-//    }
-    uniqueFiles.push_back(input[0]);
-    for(auto i : input)
-    {
-        auto f = qFind(uniqueFiles, i);
-        if(f == uniqueFiles.end())
-        {
-            uniqueFiles.push_back(i);
-        }
-
-    }
+   std::copy(input.begin(), input.end(), uniqueFiles.begin());
+   std::unique(uniqueFiles.begin(), uniqueFiles.end(), pred);
 }
 
 void Builder::createDuplicateList(const QVector<QPair<QString, QString> > &input)
@@ -72,6 +44,7 @@ void Builder::createDuplicateList(const QVector<QPair<QString, QString> > &input
     }
 }
 
+
 QStringList Builder::takeResult()
 {
     qSort(duplicateFiles);
@@ -83,18 +56,4 @@ QStringList Builder::takeResult()
     return result;
 }
 
-void Builder::create(const QVector<QPair<QString, QString>> & input)
-{
-    for(auto i : input)
-    {
-        for(auto j : input)
-        {
-            bool isEqualsHash = i.second == j.second;
-            bool isNotEqualsPath = i.first != j.first;
-            if(isEqualsHash == true && isNotEqualsPath == true)
-            {
-                duplicateFiles.push_back(j);
-            }
-        }
-    }
-}
+
