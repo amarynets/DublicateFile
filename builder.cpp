@@ -22,7 +22,10 @@ QVector<QPair<QString, QString>> Builder::calculateHash(const QVector<QString> &
     for(auto i : input)
     {
         auto hash = hash1MBFile(i);
-        result.push_back(QPair(i, hash));
+        QPair<QString, QString> tmp;
+        tmp.first = i;
+        tmp.second = hash;
+        result.push_back(tmp);
     }
     return result;
 }
