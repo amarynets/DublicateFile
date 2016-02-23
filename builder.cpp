@@ -17,15 +17,15 @@ void Builder::createDuplicateList(const QMap<qint64, QVector<QString> > & input)
     }
 }
 
-QVector<QPair<QString, QString>> Builder::calculateHash(const QVector<QString> & input)
+QVector<FileHash> Builder::calculateHash(const QVector<QString> & input)
 {
-    QVector<QPair<QString, QString>> result;
+    QVector<FileHash> result;
     for(auto i : input)
     {
         auto hash = hash1MBFile(i);
-        QPair<QString, QString> tmp;
-        tmp.first = i;
-        tmp.second = hash;
+        FileHash tmp;
+        tmp.path = i;
+        tmp.hash = hash;
         result.push_back(tmp);
     }
     return result;
@@ -46,9 +46,12 @@ QString Builder::hash1MBFile(const QString & filePath){
     return result;
 }
 
-void Builder::addIfNeeded(qint64 key, const QVector<QString> & input)
+void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
 {
+    for(auto i : input)
+    {
 
+    }
 }
 
 QStringList Builder::takeResult()

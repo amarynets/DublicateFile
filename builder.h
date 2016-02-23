@@ -1,6 +1,8 @@
 #ifndef BUILDER_H
 #define BUILDER_H
 
+#include "filehash.h"
+
 #include <QVector>
 #include <QMap>
 #include <QPair>
@@ -12,8 +14,10 @@ public:
     void createDuplicateList(const QMap<qint64, QVector<QString>> & input);
     QStringList takeResult();
 private:
-    QVector<QPair<QString, QString>> calculateHash(const QVector<QString> & input);
+    QVector<FileHash> calculateHash(const QVector<QString> & input);
     QString hash1MBFile(const QString & filePath);
+    void addIfNeeded(qint64 key, const QVector<FileHash> &input);
+
     QMap<qint64, QVector<QString>> dupList;
 };
 
