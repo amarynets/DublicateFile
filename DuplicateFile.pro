@@ -8,7 +8,7 @@ QT       += core
 
 QT       -= gui
 
-TARGET = DublicateFile
+TARGET = DuplicateFile
 CONFIG   += console c++11
 CONFIG   -= app_bundle
 

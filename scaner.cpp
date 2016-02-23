@@ -2,7 +2,7 @@
 
 #include <QDirIterator>
 
-QMap<qint64, QVector<QString>> Scaner::scanFolder1(const QString & folderName)
+QMap<qint64, QVector<QString>> Scaner::scanFolder(const QString & folderName)
 {
     QDirIterator it(folderName, QDir::Files|QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
     QMap<qint64, QVector<QString>> files;

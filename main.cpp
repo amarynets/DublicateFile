@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     {
         path = QDir::currentPath();
     }
-    auto sl = Scaner::scanFolder1(path);
+    auto sl = Scaner::scanFolder(path);
     qDebug() << "Hi";
     return 0;
 }
