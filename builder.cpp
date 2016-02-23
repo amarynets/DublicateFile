@@ -2,6 +2,7 @@
 
 #include <QCryptographicHash>
 #include <QFile>
+#include <QByteArray>
 
 void Builder::createDuplicateList(const QMap<qint64, QVector<QString> > & input)
 {
@@ -15,10 +16,30 @@ void Builder::createDuplicateList(const QMap<qint64, QVector<QString> > & input)
     }
 }
 
-QVector<QPair<QString, QString>> Builder::calculateHash(QVector<QString>)
+QVector<QPair<QString, QString>> Builder::calculateHash(const QVector<QString> & input)
 {
-    QPair<QString, QString> result;
+    QVector<QPair<QString, QString>> result;
+    for(auto i : input)
+    {
+        auto hash = hash1MBFile(i);
+        result.push_back(QPair(i, hash));
+    }
+    return result;
+}
 
+QString Builder::hash1MBFile(const QString & filePath){
+    QString result;
+    QFile* file = new QFile(filePath);
+    auto size = 1000 * 1000 + 24;
+    if(file->open(QIODevice::ReadOnly) == true)
+    {
+        QByteArray fileData = file->read(size);
+        QByteArray hashData = QCryptographicHash::hash(fileData, QCryptographicHash::Md5);
+        result = hashData.toHex();
+    }
+    file->close();
+    delete file;
+    return result;
 }
 
 QStringList Builder::takeResult()
