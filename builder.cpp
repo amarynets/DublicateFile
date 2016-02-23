@@ -11,7 +11,8 @@ void Builder::createDuplicateList(const QMap<qint64, QVector<QString> > & input)
         auto item = input.value(it);
         if(item.size() > 1)
         {
-            auto hashList = calculateHash(item);
+            auto hashFileList = calculateHash(item);
+            addIfNeeded(it, hashFileList);
         }
     }
 }
@@ -43,6 +44,11 @@ QString Builder::hash1MBFile(const QString & filePath){
     file->close();
     delete file;
     return result;
+}
+
+void Builder::addIfNeeded(qint64 key, const QVector<QString> & input)
+{
+
 }
 
 QStringList Builder::takeResult()
