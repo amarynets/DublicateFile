@@ -1,12 +1,6 @@
 #include "processor.h"
 
-Processor::Processor()
+QStringList Processor::process(const QVector<QPair<QString, qint64>> & input)
 {
 
 }
-
-Processor::~Processor()
-{
-
-}
-

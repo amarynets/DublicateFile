@@ -3,11 +3,12 @@
 
 #include <QVector>
 #include <QPair>
+#include <QMap>
 
 class Scaner
 {
 public:
-    static QVector<QPair<QString, qint64>> scanFolder(const QString & folderName);
+    static QMap<qint64, QVector<QString>> scanFolder(const QString & folderName);
 };
 
 #endif // SCANER_H
