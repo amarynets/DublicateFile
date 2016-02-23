@@ -7,12 +7,7 @@
 class Scaner
 {
 public:
-    Scaner();
-    ~Scaner();
-
-    QVector<QPair<QString, QString>> scanFolder(const QString & folderName);
-private:
-    QString hashFile(const QString& pathToFile) const;
+    static QVector<QPair<QString, qint64>> scanFolder(const QString & folderName);
 };
 
 #endif // SCANER_H

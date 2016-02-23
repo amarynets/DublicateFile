@@ -3,15 +3,19 @@
 #include <QDebug>
 
 #include "scaner.h"
-#include "processor.h"
 
 int main(int argc, char *argv[])
 {    
-//    QString path = QDir::currentPath();
-    QString path = "f:/test/";
-    Scaner scan;
-    auto sl = scan.scanFolder(path);
-    Processor proc;
-    auto result = proc.process(sl);
+    QString path;
+    if(argc == 2)
+    {
+        path = argv[1];
+    }
+    else
+    {
+        path = QDir::currentPath();
+    }
+    auto sl = Scaner::scanFolder(path);
+    qDebug() << "Hi";
     return 0;
 }
