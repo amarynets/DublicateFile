@@ -48,9 +48,20 @@ QString Builder::hash1MBFile(const QString & filePath){
 
 void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
 {
-    for(auto i : input)
+    for(auto i = 0; i < input.size() - 1; ++ i)
     {
-
+        bool isHashEquals = input[i].hash == input[i+1].hash;
+        bool isEquels = false;
+        if(isHashEquals == true)
+        {
+            isEquels = isFileEquals(input[i], input[i+1]);
+        }
+        if(isEquels == true)
+        {
+            QVector<QString> tmp;
+            tmp.push_back(input[i]);
+            duplicateFileList[key] =
+        }
     }
 }
 

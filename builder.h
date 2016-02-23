@@ -18,7 +18,7 @@ private:
     QString hash1MBFile(const QString & filePath);
     void addIfNeeded(qint64 key, const QVector<FileHash> &input);
 
-    QMap<qint64, QVector<QString>> dupList;
+    QMap<qint64, QVector<QString>> duplicateFileList;
 };
 
 #endif // BUILDER_H
