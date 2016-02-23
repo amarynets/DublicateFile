@@ -2,16 +2,16 @@
 #define BUILDER_H
 
 #include <QVector>
-#include <QPair>
+#include <QMap>
 #include <QStringList>
 
 class Builder
 {
 public:
-    void createDuplicateList(const QVector<QPair<QString, qint64>>& input);
+    void createDuplicateList(const QMap<qint64, QVector<QString>> & input);
     QStringList takeResult();
 private:
-    QVector<QPair<QString, qint64>> dupList;
+    QMap<qint64, QVector<QString>> dupList;
 };
 
 #endif // BUILDER_H

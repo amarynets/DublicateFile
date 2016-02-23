@@ -6,7 +6,7 @@
 class Processor
 {
 public:
-    static QStringList process(const QVector<QPair<QString, qint64>> & input);
+    static QStringList process(const QMap<qint64, QVector<QString>> & input);
 };
 
 #endif // PROCESSOR_H
