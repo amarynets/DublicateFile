@@ -23,4 +23,5 @@ SOURCES += main.cpp \
 HEADERS += \
     scaner.h \
     processor.h \
-    builder.h
+    builder.h \
+    filehash.h
