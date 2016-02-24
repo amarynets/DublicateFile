@@ -19,6 +19,7 @@ private:
     void addIfNeeded(qint64 key, const QVector<FileHash> &input);
     bool isFileEquals(const FileHash & first, const FileHash & second);
     QVector<FileHash> uniqueFileList(const QVector<FileHash> &input);
+    QVector<FileHash> compareFiles(const FileHash & file, const QVector<FileHash> & input);
 
     QMap<qint64, QVector<QString>> duplicateFileList;
 };

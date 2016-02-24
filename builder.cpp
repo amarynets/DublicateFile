@@ -50,6 +50,16 @@ QString Builder::hash1MBFile(const QString & filePath){
 void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
 {
     QVector<FileHash> uniqueFL = uniqueFileList(input);
+    for(auto it : uniqueFL)
+    {
+        QVector<FileHash> dupList = compareFiles(it, input);
+        if(dupList.size() > 1)
+        {
+            auto tmp = duplicateFileList.value(key);
+            tmp += dupList;
+            duplicateFileList[key] = tmp;
+        }
+    }
 }
 
 bool Builder::isFileEquals(const FileHash & first, const FileHash & second)
@@ -97,6 +107,39 @@ QVector<FileHash> Builder::uniqueFileList(const QVector<FileHash> &input)
         if(pos == result.end())
         {
             result.push_back(it);
+        }
+    }
+    return result;
+}
+
+QVector<FileHash> Builder::compareFiles(const FileHash & file, const QVector<FileHash> & input)
+{
+    QVector<FileHash> result;
+    for(auto i : input)
+    {
+        bool isPath = file.path == i.path;
+        bool isHash = file.hash == i.hash;
+        bool isEquals = false;
+        if(isPath == false && isHash == true)
+        {
+            isEquals = isFileEquals(file, i);
+        }
+//Можлива некоректна робота, оскільки можуть додаватись по декілька файлів
+        if(isEquals == true)
+        {
+            auto pos = std::find_if(result.begin(), result.end(), [&file](const FileHash & rhs)
+            {
+                return file.path == rhs.path;
+            });
+            if(pos == result.end())
+            {
+                result.push_back(file);
+                result.push_back(i);
+            }
+            else
+            {
+                result.push_back(i);
+            }
         }
     }
     return result;
