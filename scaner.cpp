@@ -9,22 +9,8 @@ QMap<qint64, QVector<QString>> Scaner::scanFolder(const QString & folderName)
     while(it.hasNext())
     {
         it.next();
-        auto info = it.fileInfo();
-        auto size = info.size();
-        bool isBe = files.contains(size);
-        if(isBe == true)
-        {
-            auto val = files.value(size);
-            //auto tmp = val.toVector();
-            val.push_back(it.filePath());
-            files[size] = val;
-        }
-        else
-        {
-            QVector<QString> elem;
-            elem.push_back(it.filePath());
-            files[size] = elem;
-        }
+        QFileInfo info = it.fileInfo();
+        files[info.size()].append(it.filePath());
     }
     return files;
 }

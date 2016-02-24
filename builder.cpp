@@ -6,11 +6,6 @@
 #include <QtAlgorithms>
 #include <algorithm>
 
-bool pred(const QString & l, const QString & r)
-{
-    return l == r;
-}
-
 void Builder::createDuplicateList(const QMap<qint64, QVector<QString> > & input)
 {
     for(auto it : input.keys())
@@ -54,26 +49,7 @@ QString Builder::hash1MBFile(const QString & filePath){
 
 void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
 {
-    for(auto i : input)
-    {
-        for(auto j : input)
-        {
-            bool isPath = i.path == j.path;
-            bool isHash = i.hash == j.hash;
-            bool isEquals = false;
-            if(isPath == false && isHash == true)
-            {
-               isEquals = isFileEquals(i, j);
-            }
-            if(isEquals == true)
-            {
-               auto vecResult = duplicateFileList.value(key);
-               vecResult.push_back(i.path);
-               std::unique(vecResult.begin(), vecResult.end(), pred);
-               duplicateFileList[key] = vecResult;
-            }
-        }
-    }
+    QVector<FileHash> uniqueFL = uniqueFileList(input);
 }
 
 bool Builder::isFileEquals(const FileHash & first, const FileHash & second)
@@ -104,6 +80,23 @@ QStringList Builder::takeResult()
             {
                 result << i;
             }
+        }
+    }
+    return result;
+}
+
+QVector<FileHash> Builder::uniqueFileList(const QVector<FileHash> &input)
+{
+    QVector<FileHash> result;
+    for(auto it : input)
+    {
+        auto pos = std::find_if(result.begin(), result.end(),[&it](const FileHash & rhs)
+        {
+            return it.hash == rhs.hash;
+        });
+        if(pos == result.end())
+        {
+            result.push_back(it);
         }
     }
     return result;
