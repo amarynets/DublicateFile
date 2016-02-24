@@ -4,6 +4,12 @@
 #include <QFile>
 #include <QByteArray>
 #include <QtAlgorithms>
+#include <algorithm>
+
+bool pred(const QString & l, const QString & r)
+{
+    return l == r;
+}
 
 void Builder::createDuplicateList(const QMap<qint64, QVector<QString> > & input)
 {
@@ -48,19 +54,24 @@ QString Builder::hash1MBFile(const QString & filePath){
 
 void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
 {
-    for(auto i = 0; i < input.size() - 1; ++ i)
+    for(auto i : input)
     {
-        bool isHashEquals = input[i].hash == input[i+1].hash;
-        bool isEquals = false;
-        if(isHashEquals == true)
+        for(auto j : input)
         {
-            isEquals = isFileEquals(input[i], input[i+1]);
-        }
-        if(isEquals == true)
-        {
-            QVector<QString> tmp;
-            tmp.push_back(input[i].path);
-            duplicateFileList[key] = tmp;
+            bool isPath = i.path == j.path;
+            bool isHash = i.hash == j.hash;
+            bool isEquals = false;
+            if(isPath == false && isHash == true)
+            {
+               isEquals = isFileEquals(i, j);
+            }
+            if(isEquals == true)
+            {
+               auto vecResult = duplicateFileList.value(key);
+               vecResult.push_back(i.path);
+               std::unique(vecResult.begin(), vecResult.end(), pred);
+               duplicateFileList[key] = vecResult;
+            }
         }
     }
 }
