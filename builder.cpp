@@ -36,13 +36,13 @@ QString Builder::hash1MBFile(const QString & filePath){
     QString result;
     QFile file(filePath);
     int size = 1000 * 1000 + 24;
-    if(file->open(QIODevice::ReadOnly) == true)
+    if(file.open(QIODevice::ReadOnly) == true)
     {
-        QByteArray fileData = file->read(size);
+        QByteArray fileData = file.read(size);
         QByteArray hashData = QCryptographicHash::hash(fileData, QCryptographicHash::Md5);
         result = hashData.toHex();
     }
-    file->close();
+    file.close();
     return result;
 }
 
@@ -51,27 +51,27 @@ void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
     for(auto i = 0; i < input.size() - 1; ++ i)
     {
         bool isHashEquals = input[i].hash == input[i+1].hash;
-        bool isEquels = false;
+        bool isEquals = false;
         if(isHashEquals == true)
         {
-            isEquels = isFileEquals(input[i], input[i+1]);
+            isEquals = isFileEquals(input[i], input[i+1]);
         }
-        if(isEquels == true)
+        if(isEquals == true)
         {
             QVector<QString> tmp;
-            tmp.push_back(input[i]);
+            tmp.push_back(input[i].path);
             duplicateFileList[key] = tmp;
         }
     }
 }
 
-bool isFileEquals(const FileHash & first, const FileHash & second)
+bool Builder::isFileEquals(const FileHash & first, const FileHash & second)
 {
     QFile f1(first.path);
     QFile f2(second.path);
     bool isOpen1 = f1.open(QIODevice::ReadOnly);
     bool isOpen2 = f2.open(QIODevice::ReadOnly);
-    bool result;
+    bool result = false;
     if(isOpen1 == true && isOpen2 == true)
     {
         QByteArray data1 = f1.readAll();
@@ -83,5 +83,17 @@ bool isFileEquals(const FileHash & first, const FileHash & second)
 
 QStringList Builder::takeResult()
 {
-
+    QStringList result;
+    for(auto it : duplicateFileList.keys())
+    {
+        auto item = duplicateFileList.value(it);
+        if(item.size() > 1)
+        {
+            for(auto i : item)
+            {
+                result << i;
+            }
+        }
+    }
+    return result;
 }

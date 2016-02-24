@@ -3,6 +3,7 @@
 #include <QDebug>
 
 #include "scaner.h"
+#include "processor.h"
 
 int main(int argc, char *argv[])
 {    
@@ -15,7 +16,8 @@ int main(int argc, char *argv[])
     {
         path = QDir::currentPath();
     }
-    auto sl = Scaner::scanFolder(path);
+    auto fileList = Scaner::scanFolder(path);
+    auto dupFileList = Processor::process(fileList);
     qDebug() << "Hi";
     return 0;
 }

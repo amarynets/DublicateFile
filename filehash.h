@@ -2,6 +2,7 @@
 #define FILEHASH
 
 #include <QPair>
+#include <QString>
 
 struct FileHash
 {
