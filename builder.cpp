@@ -3,6 +3,7 @@
 #include <QCryptographicHash>
 #include <QFile>
 #include <QByteArray>
+#include <QtAlgorithms>
 
 void Builder::createDuplicateList(const QMap<qint64, QVector<QString> > & input)
 {
@@ -33,8 +34,8 @@ QVector<FileHash> Builder::calculateHash(const QVector<QString> & input)
 
 QString Builder::hash1MBFile(const QString & filePath){
     QString result;
-    QFile* file = new QFile(filePath);
-    auto size = 1000 * 1000 + 24;
+    QFile file(filePath);
+    int size = 1000 * 1000 + 24;
     if(file->open(QIODevice::ReadOnly) == true)
     {
         QByteArray fileData = file->read(size);
@@ -42,7 +43,6 @@ QString Builder::hash1MBFile(const QString & filePath){
         result = hashData.toHex();
     }
     file->close();
-    delete file;
     return result;
 }
 
@@ -60,9 +60,25 @@ void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
         {
             QVector<QString> tmp;
             tmp.push_back(input[i]);
-            duplicateFileList[key] =
+            duplicateFileList[key] = tmp;
         }
     }
+}
+
+bool isFileEquals(const FileHash & first, const FileHash & second)
+{
+    QFile f1(first.path);
+    QFile f2(second.path);
+    bool isOpen1 = f1.open(QIODevice::ReadOnly);
+    bool isOpen2 = f2.open(QIODevice::ReadOnly);
+    bool result;
+    if(isOpen1 == true && isOpen2 == true)
+    {
+        QByteArray data1 = f1.readAll();
+        QByteArray data2 = f2.readAll();
+        result = qEqual(data1.begin(), data1.end(), data2.begin());
+    }
+    return result;
 }
 
 QStringList Builder::takeResult()
