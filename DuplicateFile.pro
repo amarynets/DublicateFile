@@ -18,10 +18,12 @@ TEMPLATE = app
 SOURCES += main.cpp \
     scaner.cpp \
     processor.cpp \
-    builder.cpp
+    builder.cpp \
+    printer.cpp
 
 HEADERS += \
     scaner.h \
     processor.h \
     builder.h \
-    filehash.h
+    filehash.h \
+    printer.h
