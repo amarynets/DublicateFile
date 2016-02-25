@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 #include <QDir>
 #include <QDebug>
+#include <QElapsedTimer>
 
 #include "scaner.h"
 #include "processor.h"
@@ -17,6 +18,8 @@ int main(int argc, char *argv[])
     {
         path = QDir::currentPath();
     }
+    QElapsedTimer timer;
+    timer.start();
     qDebug() << "Scaning folder " << path << endl;
     auto fileList = Scaner::scanFolder(path);
 
@@ -26,5 +29,6 @@ int main(int argc, char *argv[])
     qDebug() << "Printing duplicate file from folder " << path << endl;
     Printer::print(dupFileList);
 
+    qDebug() << endl << "Program worked " << timer.elapsed() << " ms" << endl;
     return 0;
 }
