@@ -6,7 +6,7 @@ void Printer::print(const QStringList & input)
 {
     for(auto i : input)
     {
-        qDebug() << i << endl;
+        qDebug() << i;
     }
 }
 

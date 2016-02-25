@@ -5,6 +5,7 @@
 #include <QByteArray>
 #include <QtAlgorithms>
 #include <algorithm>
+#include <QDebug>
 
 void Builder::createDuplicateList(const QMap<qint64, QVector<QString> > & input)
 {
@@ -81,11 +82,13 @@ bool Builder::isFileEquals(const FileHash & first, const FileHash & second)
 QStringList Builder::takeResult()
 {
     QStringList result;
+    QString newGroup("\n New group duplicate files");
     for(auto it : duplicateFileList.keys())
     {
         auto item = duplicateFileList.value(it);
         if(item.size() > 1)
         {
+            result << newGroup;
             for(auto i : item)
             {
                 result << i;

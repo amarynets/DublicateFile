@@ -2,6 +2,7 @@
 #include <QDir>
 #include <QDebug>
 #include <QElapsedTimer>
+#include <locale>
 
 #include "scaner.h"
 #include "processor.h"
@@ -9,6 +10,7 @@
 
 int main(int argc, char *argv[])
 {    
+    setlocale(LC_ALL, "Russian");
     QString path;
     if(argc == 2)
     {
