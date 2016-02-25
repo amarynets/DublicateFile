@@ -2,6 +2,7 @@
 #define PROCESSOR_H
 
 #include <QStringList>
+#include <QMap>
 
 class Processor
 {
