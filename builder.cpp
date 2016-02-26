@@ -1,5 +1,6 @@
 #include "builder.h"
 #include "hash.h"
+#include "uniquefilelist.h"
 
 #include <QFile>
 #include <QByteArray>
@@ -22,7 +23,7 @@ void Builder::createDuplicateList(const QMap<qint64, QVector<QString> > & input)
 
 void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
 {
-    QVector<FileHash> uniqueFL = uniqueFileList(input);
+    QVector<FileHash> uniqueFL = UniqueFileList::takeUniqueList(input);
     for(auto it : uniqueFL)
     {
         QVector<QString> dupList = compareFiles(it, input);
@@ -65,23 +66,6 @@ QStringList Builder::takeResult()
             {
                 result << i;
             }
-        }
-    }
-    return result;
-}
-
-QVector<FileHash> Builder::uniqueFileList(const QVector<FileHash> &input)
-{
-    QVector<FileHash> result;
-    for(auto it : input)
-    {
-        auto pos = std::find_if(result.begin(), result.end(),[&it](const FileHash & rhs)
-        {
-            return it.hash == rhs.hash;
-        });
-        if(pos == result.end())
-        {
-            result.push_back(it);
         }
     }
     return result;

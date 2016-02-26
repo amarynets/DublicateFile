@@ -18,11 +18,8 @@ public:
     void createDuplicateList(const QMap<qint64, QVector<QString>> & input);
     QStringList takeResult();
 private:
-    QVector<FileHash> calculateHash(const QVector<QString> & input);
-    QString hash1MBFile(const QString & filePath);
     void addIfNeeded(qint64 key, const QVector<FileHash> &input);
     bool isFileEquals(const FileHash & first, const FileHash & second);
-    QVector<FileHash> uniqueFileList(const QVector<FileHash> &input);
     QVector<QString> compareFiles(const FileHash & file, const QVector<FileHash> & input);
 
     QMap<qint64, QVector<QString>> duplicateFileList;
