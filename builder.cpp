@@ -1,12 +1,9 @@
 #include "builder.h"
 #include "hash.h"
 #include "uniquefilelist.h"
+#include "comparator.h"
 
-#include <QFile>
-#include <QByteArray>
-#include <QtAlgorithms>
 #include <algorithm>
-#include <QDebug>
 
 void Builder::createDuplicateList(const QMap<qint64, QVector<QString> > & input)
 {
@@ -36,21 +33,7 @@ void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
     }
 }
 
-bool Builder::isFileEquals(const FileHash & first, const FileHash & second)
-{
-    QFile f1(first.path);
-    QFile f2(second.path);
-    bool isOpen1 = f1.open(QIODevice::ReadOnly);
-    bool isOpen2 = f2.open(QIODevice::ReadOnly);
-    bool result = false;
-    if(isOpen1 == true && isOpen2 == true)
-    {
-        QByteArray data1 = f1.readAll();
-        QByteArray data2 = f2.readAll();
-        result = qEqual(data1.begin(), data1.end(), data2.begin());
-    }
-    return result;
-}
+
 
 QStringList Builder::takeResult()
 {
@@ -76,15 +59,9 @@ QVector<QString> Builder::singleDuplicateList(const FileHash & file, const QVect
     QVector<FileHash> result;
     for(auto i : input)
     {
-        bool isPath = file.path == i.path;
-        bool isHash = file.hash == i.hash;
-        bool isEquals = false;
-        if(isPath == false && isHash == true)
-        {
-            isEquals = isFileEquals(file, i);
-        }
+        bool fileEquals = Comparator::isFilesEquals(file, i);
 //Можлива некоректна робота, оскільки можуть додаватись по декілька файлів
-        if(isEquals == true)
+        if(fileEquals == true)
         {
             auto pos = std::find_if(result.begin(), result.end(), [&file](const FileHash & rhs)
             {
