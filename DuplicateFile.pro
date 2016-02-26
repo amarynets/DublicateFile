@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     builder.cpp \
     printer.cpp \
     hash.cpp \
-    uniquefilelist.cpp
+    uniquefilelist.cpp \
+    comparator.cpp
 
 HEADERS += \
     scaner.h \
@@ -30,4 +31,5 @@ HEADERS += \
     filehash.h \
     printer.h \
     hash.h \
-    uniquefilelist.h
+    uniquefilelist.h \
+    comparator.h
