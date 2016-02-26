@@ -26,7 +26,7 @@ void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
     QVector<FileHash> uniqueFL = UniqueFileList::takeUniqueList(input);
     for(auto it : uniqueFL)
     {
-        QVector<QString> dupList = compareFiles(it, input);
+        QVector<QString> dupList = singleDuplicateList(it, input);
         if(dupList.size() > 1)
         {
             auto tmp = duplicateFileList.value(key);
@@ -71,7 +71,7 @@ QStringList Builder::takeResult()
     return result;
 }
 
-QVector<QString> Builder::compareFiles(const FileHash & file, const QVector<FileHash> & input)
+QVector<QString> Builder::singleDuplicateList(const FileHash & file, const QVector<FileHash> & input)
 {
     QVector<FileHash> result;
     for(auto i : input)
