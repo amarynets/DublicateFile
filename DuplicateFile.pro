@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     processor.cpp \
     builder.cpp \
     printer.cpp \
-    hash.cpp
+    hash.cpp \
+    uniquefilelist.cpp
 
 HEADERS += \
     scaner.h \
@@ -28,4 +29,5 @@ HEADERS += \
     builder.h \
     filehash.h \
     printer.h \
-    hash.h
+    hash.h \
+    uniquefilelist.h
