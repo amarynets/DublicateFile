@@ -18,6 +18,7 @@ void Builder::createDuplicateList(const QMap<qint64, QVector<QString> > & input)
     }
 }
 
+//Добавлення файлу в список дуплікатів
 void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
 {
     QVector<FileHash> uniqueFL = UniqueFileList::takeUniqueList(input);
@@ -54,6 +55,8 @@ QStringList Builder::takeResult()
     return result;
 }
 
+
+//Створення списку дуплікатів файлу для файлів які рівні по розміру
 QVector<QString> Builder::singleDuplicateList(const FileHash & file, const QVector<FileHash> & input)
 {
     QVector<FileHash> result;
