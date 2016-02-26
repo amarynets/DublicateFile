@@ -19,11 +19,13 @@ SOURCES += main.cpp \
     scaner.cpp \
     processor.cpp \
     builder.cpp \
-    printer.cpp
+    printer.cpp \
+    hash.cpp
 
 HEADERS += \
     scaner.h \
     processor.h \
     builder.h \
     filehash.h \
-    printer.h
+    printer.h \
+    hash.h
