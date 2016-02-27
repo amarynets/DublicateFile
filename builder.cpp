@@ -39,7 +39,8 @@ void Builder::addIfNeeded(qint64 key, const QVector<FileHash> & input)
 QStringList Builder::takeResult()
 {
     QStringList result;
-    QString newGroup("\n New group duplicate files");
+    QString newGroup("_________________________\n"
+                     "New group duplicate files");
     for(auto it : duplicateFileList.keys())
     {
         auto item = duplicateFileList.value(it);
